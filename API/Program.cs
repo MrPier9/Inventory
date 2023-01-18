@@ -1,3 +1,4 @@
+using System.Net;
 using API.Data;
 using API.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+});
 
 app.UseAuthorization();
 
