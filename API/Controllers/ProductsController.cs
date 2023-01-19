@@ -1,6 +1,7 @@
 using API.Data;
 using API.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ namespace API.Controllers
             _context = context;
         }
 
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
@@ -26,6 +28,7 @@ namespace API.Controllers
             return products;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -36,6 +39,7 @@ namespace API.Controllers
             return product;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateProduct(Product product)
         {
@@ -48,6 +52,7 @@ namespace API.Controllers
             return BadRequest("---> Error creating product");
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<Product>> UpdateProduct(int id, Product product)
         {
@@ -66,6 +71,7 @@ namespace API.Controllers
             return BadRequest("---> Problem updating product!");
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

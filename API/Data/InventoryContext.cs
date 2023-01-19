@@ -1,9 +1,10 @@
 using API.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class InventoryContext : DbContext
+    public class InventoryContext : IdentityDbContext<User>
     {
         public InventoryContext(DbContextOptions options) : base(options)
         {

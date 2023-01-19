@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -7,18 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
   title = 'Inventory';
-  products: any;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.http.get('https://localhost:7059/api/products').subscribe({
-      next: response => this.products = response,
-      error: error => console.log(error),
-      complete: () => console.log('request has completed')
-    })
+    this.setCurrentUser();
+  }
+
+
+
+  setCurrentUser() {
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
+    const user: User = JSON.parse(userString);
+    this.accountService.setCurrentUser(user);
   }
 
 }
